@@ -2,18 +2,18 @@ import { useEffect, useState, useContext } from "react"
 import CardLayout from "../Layout/CardLayout"
 import GlobalContext from "../context/GlobalContext"
 
-export default function TabletPage() {
+export default function SmartwatchPage() {
     const { apiUrl } = useContext(GlobalContext)
-    const [tablets, setTablets] = useState([])
+    const [smartwatch, setSmartwatch] = useState([])
 
     useEffect(() => {
-        fetch(`${apiUrl}/tablets`)
+        fetch(`${apiUrl}/smartwatches`)
             .then(res => res.json())
-            .then(data => setTablets(data))
+            .then(data => setSmartwatch(data))
     }, [])
     return (
         <div>
-            <CardLayout arrayObj={tablets} />
+            <CardLayout arrayObj={smartwatch} />
         </div>
     )
 }

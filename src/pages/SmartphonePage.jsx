@@ -1,5 +1,19 @@
-export default function SmartwatchPage() {
+import { useEffect, useState, useContext } from "react"
+import CardLayout from "../Layout/CardLayout"
+import GlobalContext from "../context/GlobalContext"
+
+export default function SmartphonePage() {
+    const { apiUrl } = useContext(GlobalContext)
+    const [smartphones, setSmartphones] = useState([])
+
+    useEffect(() => {
+        fetch(`${apiUrl}/smartphones`)
+            .then(res => res.json())
+            .then(data => setSmartphones(data))
+    }, [])
     return (
-        <div></div>
+        <div>
+            <CardLayout arrayObj={smartphones} />
+        </div>
     )
 }
