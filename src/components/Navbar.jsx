@@ -1,12 +1,16 @@
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     return (
-        <div>
-            <Link to="/"><span>Homepage</span></Link>
-            <Link to='/smartphones'><span>SmartPhones</span></Link>
-            <Link to='/tablets'>Tablets</Link>
-            <Link to='/smartwatchs'>SmartWatch</Link>
-        </div>
-    )
+        <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+            <div className="container-fluid d-flex align-items-center justify-content-between">
+                <div className="d-flex align-items-center gap-3">
+                    <Link to="/" className="navbar-brand">Mobile Store</Link>
+                    <Link to="/devices" className="nav-link">Devices</Link>
+                    <Link to='/favorites' className='nav-link'>Star</Link>
+                </div>
+
+            </div>
+        </nav>
+    );
 }
