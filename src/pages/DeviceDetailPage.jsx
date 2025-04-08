@@ -19,17 +19,21 @@ export default function DeviceDetailPage() {
         }
     }, [apiUrl, category, id]);
 
-
-    useEffect(() => {
-        console.log(device);
-
-    }, [device])
-
-
-
     return (
         <div>
-
+            {device.imgUrl ? <img src={device.imgUrl} alt="" /> : <div>img non disponibile</div>}
+            <p>{device.title}</p>
+            <p>{device.brand}</p>
+            <p>{device.category}</p>
+            <p>{device.price}</p>
+            Specifiche:
+            {device.screenSize != null && <div>{device.screenSize} Pollici</div>}
+            {device.storageGB != null && <div>{device.storageGB} GB</div>}
+            {device?.stylusSupport !== undefined && <div>{device.stylusSupport ? "Si" : "No"}</div>}
+            {device.cameraMP != null && <div>{device.cameraMP} MP</div>}
+            {device.batteryLife != null && <div>{device.batteryLife} Ore</div>}
+            {device?.hasGPS !== undefined && <div>{device.hasGPS ? "Si" : "No"}</div>}
+            {device?.waterproof !== undefined && <div>{device.waterproof ? "Si" : "No"}</div>}
         </div>
     )
 }

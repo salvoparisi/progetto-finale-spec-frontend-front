@@ -7,7 +7,11 @@ export default function CardLayout({ arrayObj }) {
                 return (
 
                     <div className="d-flex" key={i}>
+                        {obj.category && (
+                            <img src={`/assets/${obj.category.toLowerCase()}.jpg`} alt="" />
+                        )}
                         <Link to={`/${obj.category.toLowerCase()}/${obj.id}`}>
+
                             <p>{obj.title}</p>
                         </Link>
                         <p>{obj.category}</p>
