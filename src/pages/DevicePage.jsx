@@ -39,21 +39,43 @@ export default function DevicePage() {
     }, [sort, categoryDevice])
 
     return (
-        <div>
-            <div className="d-flex">
-                <input type="text" onChange={(e) => setFilterName(e.target.value)} />
-                <div>
-                    Categoria:
-                    <select name="" id="" onChange={(e) => setCategory(e.target.value)}>
-                        <option value="">Tutti i dispositivi</option>
-                        <option value="Smartphone">Smartphone</option>
-                        <option value="Tablet">Tablet</option>
-                        <option value="Smartwatch">Smartwatch</option>
-                    </select>
+        <div className="container mt-4 mb-5">
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <div className="input-group w-50 mt-4">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Cerca per nome"
+                        onChange={(e) => setFilterName(e.target.value)}
+                    />
                 </div>
-                <button onClick={handleSort} className="btn btn-outline-secondary">{sort === 1 ? "↓" : "↑"}</button>
+                <div className="d-flex align-items-center">
+                    <div className="me-3">
+                        <label htmlFor="categorySelect" className="form-label mb-0">Categoria:</label>
+                        <select
+                            id="categorySelect"
+                            className="form-select"
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                            <option value="">Tutti i dispositivi</option>
+                            <option value="Smartphone">Smartphone</option>
+                            <option value="Tablet">Tablet</option>
+                            <option value="Smartwatch">Smartwatch</option>
+                        </select>
+                    </div>
+                    <button
+                        onClick={handleSort}
+                        className="btn btn-outline-secondary mt-4"
+                    >
+                        {sort === 1 ? "↓" : "↑"}
+                    </button>
+                </div>
             </div>
-            <CardLayout arrayObj={sortedTask} />
+            <div className="row g-3">
+                {sortedTask.length > 0 && sortedTask.map((obj, i) => {
+                    return <CardLayout key={i} obj={obj} />
+                })}
+            </div>
         </div>
     )
 }

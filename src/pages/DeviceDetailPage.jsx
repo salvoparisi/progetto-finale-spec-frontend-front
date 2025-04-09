@@ -20,20 +20,38 @@ export default function DeviceDetailPage() {
     }, [apiUrl, category, id]);
 
     return (
-        <div>
-            {device.imgUrl ? <img src={device.imgUrl} alt="" /> : <div>img non disponibile</div>}
-            <p>{device.title}</p>
-            <p>{device.brand}</p>
-            <p>{device.category}</p>
-            <p>{device.price}</p>
-            Specifiche:
-            {device.screenSize != null && <div>{device.screenSize} Pollici</div>}
-            {device.storageGB != null && <div>{device.storageGB} GB</div>}
-            {device?.stylusSupport !== undefined && <div>{device.stylusSupport ? "Si" : "No"}</div>}
-            {device.cameraMP != null && <div>{device.cameraMP} MP</div>}
-            {device.batteryLife != null && <div>{device.batteryLife} Ore</div>}
-            {device?.hasGPS !== undefined && <div>{device.hasGPS ? "Si" : "No"}</div>}
-            {device?.waterproof !== undefined && <div>{device.waterproof ? "Si" : "No"}</div>}
+        <div className="container mt-5">
+            <div className="row">
+                {/* Sezione immagine */}
+                <div className="col-12 col-md-6 mb-4">
+                    {device.imgUrl ? (
+                        <img src={device.imgUrl} alt={device.title} className="img-fluid rounded shadow-sm" style={{ height: '600px', width: '600px', objectFit: 'cover' }} />
+                    ) : (
+                        <div className="alert alert-warning" role="alert">
+                            Immagine non disponibile
+                        </div>
+                    )}
+                </div>
+
+                {/* Dettagli dispositivo */}
+                <div className="col-12 col-md-6 mb-4">
+                    <h1 className="mb-3">{device.title}</h1>
+                    <p className="lead mb-3">{device.brand}</p>
+                    <p><strong>Categoria:</strong> {device.category}</p>
+                    <p><strong>Prezzo:</strong> €{device.price}</p>
+
+                    <div className="mt-4">
+                        <h5>Specifiche:</h5>
+                        {device.screenSize != null && <div><strong>Dimensione Schermo:</strong> {device.screenSize} Pollici</div>}
+                        {device.storageGB != null && <div><strong>Memoria:</strong> {device.storageGB} GB</div>}
+                        {device?.stylusSupport !== undefined && <div><strong>Supporto Penna:</strong> {device.stylusSupport ? "✅" : "❌"}</div>}
+                        {device.cameraMP != null && <div><strong>Fotocamera:</strong> {device.cameraMP} MP</div>}
+                        {device.batteryLife != null && <div><strong>Autonomia Batteria:</strong> {device.batteryLife} Ore</div>}
+                        {device?.hasGPS !== undefined && <div><strong>Supporto GPS:</strong> {device.hasGPS ? "✅" : "❌"}</div>}
+                        {device?.waterproof !== undefined && <div><strong>WaterProof:</strong> {device.waterproof ? "✅" : "❌"}</div>}
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

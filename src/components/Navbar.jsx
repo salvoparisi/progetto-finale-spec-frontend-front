@@ -6,8 +6,8 @@ export default function Navbar() {
             <div className="container-fluid d-flex align-items-center justify-content-between">
                 <div className="d-flex align-items-center gap-3">
                     <Link to="/" className="navbar-brand">Mobile Store</Link>
-                    <Link to="/devices" className="nav-link">Devices</Link>
-                    <Link to='/favorites' className='nav-link'>Star</Link>
+                    <Link to="/devices" className="nav-link">Dispostivi📱</Link>
+                    <Link to='/favorites' className='nav-link'>Preferiti⭐</Link>
                 </div>
 
             </div>
