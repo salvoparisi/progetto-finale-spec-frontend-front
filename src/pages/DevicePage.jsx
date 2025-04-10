@@ -63,17 +63,24 @@ export default function DevicePage() {
 
     return (
         <div className="container mt-4 mb-5">
-            <div className="d-flex justify-content-between align-items-center mb-4">
-                <div className="input-group w-50 mt-4">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Cerca per nome"
-                        onChange={(e) => setFilterName(e.target.value)}
-                    />
+            <h1 className="text-primary text-center">Lista Dispositivi</h1>
+            <div className="row justify-content-between align-items-center mb-4">
+                {/* Input Cerca */}
+                <div className="col-12 col-md-6 mt-5">
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Cerca per nome"
+                            onChange={(e) => setFilterName(e.target.value)}
+                        />
+                    </div>
                 </div>
-                <div className="d-flex align-items-center">
-                    <div className="me-3">
+
+                {/* Sezione Filtri + Bottoni */}
+                <div className="col-12 col-md-6 mt-4 d-flex flex-wrap align-items-center justify-content-md-end">
+                    {/* Select Categoria */}
+                    <div className="me-3 mb-2">
                         <label htmlFor="categorySelect" className="form-label mb-0">Categoria:</label>
                         <select
                             id="categorySelect"
@@ -94,24 +101,49 @@ export default function DevicePage() {
                             <option value="Smartwatch">Smartwatch</option>
                         </select>
                     </div>
-                    {comparator ? <button className="btn btn-danger btn-outline-secondary mt-4 me-3 text-white" onClick={handleComparator} >Esci dalla Modalità Confronta</button>
-                        : <button className="btn btn-outline-secondary mt-4 me-3" onClick={handleComparator} >Confronta Dispositivi</button>}
+
+                    {/* Bottone Comparator */}
+                    <div className="mt-3">
+                        {comparator ? (
+                            <button
+                                className="btn btn-danger btn-outline-secondary me-3 text-white"
+                                onClick={handleComparator}
+                            >
+                                Esci dalla Modalità Confronta
+                            </button>
+                        ) : (
+                            <button
+                                className="btn btn-outline-secondary me-3"
+                                onClick={handleComparator}
+                            >
+                                Confronta Dispositivi
+                            </button>
+                        )}
+                    </div>
+
+                    {/* Modal */}
                     <ModalComparator
                         setCategory={setCategory}
                         setShowModal={setShowModal}
                         showModal={showModal}
                         setComparator={setComparator}
                     />
-                    <button
-                        onClick={handleSort}
-                        className="btn btn-outline-secondary mt-4"
-                    >
-                        {sort === 1 ? "↓" : "↑"}
-                    </button>
+
+                    {/* Bottone Sort */}
+                    <div className="mt-3">
+                        <button
+                            onClick={handleSort}
+                            className="btn btn-outline-secondary"
+                        >
+                            {sort === 1 ? "↓" : "↑"}
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            {/* Cards */}
             <div className="row g-3">
-                {sortedTask.length > 0 && sortedTask.map((obj, i) => {
+                {sortedTask.length > 0 ? sortedTask.map((obj, i) => {
                     if (!obj || !obj.title || !obj.id || !obj.category) return null;
                     return (
                         <CardLayout
@@ -122,9 +154,12 @@ export default function DevicePage() {
                             category={category}
                         />
                     );
-                })}
-
+                }) : (
+                    <h1 className="text-danger text-center mt-5">Nessun Risultato Trovato</h1>
+                )}
             </div>
+
+            {/* Bottone Confronta/Seleziona */}
             {compareDevice.length > 1 && comparator ? (
                 <button
                     className="btn btn-primary position-fixed bottom-0 start-50 translate-middle-x mb-3"
@@ -140,5 +175,6 @@ export default function DevicePage() {
                 </button>
             )}
         </div>
+
     )
 }

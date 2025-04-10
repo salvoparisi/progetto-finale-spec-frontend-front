@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, memo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import GlobalContext from "../context/GlobalContext";
 
-export default function CardLayout({ obj, comparator, setCompareDevice = () => { }, category }) {
+const CardLayout = memo(({ obj, comparator, setCompareDevice = () => { }, category }) => {
     const { favorites, setFavorites } = useContext(GlobalContext);
     const [star, setStar] = useState(false);
     const [check, setCheck] = useState(false);
@@ -86,4 +86,6 @@ export default function CardLayout({ obj, comparator, setCompareDevice = () => {
             </div>
         </div>
     );
-}
+})
+
+export default CardLayout

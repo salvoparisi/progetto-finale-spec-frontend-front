@@ -19,7 +19,7 @@ export default function DeviceDetailPage() {
         }
     }, [apiUrl, category, id]);
 
-    return (
+    return device ? (
         <div className="container mt-5">
             <div className="row">
                 {/* Sezione immagine */}
@@ -55,5 +55,7 @@ export default function DeviceDetailPage() {
                 </div>
             </div>
         </div>
+    ) : (
+        <h1 className="text-center text-danger mt-5">Nessun ID trovato</h1>
     )
 }
