@@ -30,8 +30,10 @@ const CardLayout = memo(({ obj, comparator, setCompareDevice = () => { }, catego
     }
 
     useEffect(() => {
+
         const isFavorite = favorites.some(fav => fav.title === obj.title);
         setStar(isFavorite);
+
     }, [favorites, obj.title]);
 
     useEffect(() => {
