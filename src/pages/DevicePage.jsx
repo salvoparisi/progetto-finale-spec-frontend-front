@@ -10,6 +10,7 @@ export default function DevicePage() {
     const [category, setCategory] = useState('')
     const [sort, setSort] = useState(1)
     const [comparator, setComparator] = useState(false)
+    const [compareDevice, setCompareDevice] = useState([])
 
     useEffect(() => {
         const urls = [
@@ -48,6 +49,10 @@ export default function DevicePage() {
         }
     }
 
+    useEffect(() => {
+        setCompareDevice([])
+    }, [category])
+
     return (
         <div className="container mt-4 mb-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
@@ -65,7 +70,15 @@ export default function DevicePage() {
                         <select
                             id="categorySelect"
                             className="form-select"
-                            onChange={(e) => setCategory(e.target.value)}
+                            onChange={(e) => {
+                                if (e.target.value === "") {
+                                    setComparator(false)
+                                    setCategory(e.target.value)
+                                } else {
+                                    setCategory(e.target.value)
+                                }
+                            }}
+                            value={category}
                         >
                             <option value="">Tutti i dispositivi</option>
                             <option value="Smartphone">Smartphone</option>
@@ -89,9 +102,32 @@ export default function DevicePage() {
             </div>
             <div className="row g-3">
                 {sortedTask.length > 0 && sortedTask.map((obj, i) => {
-                    return <CardLayout key={i} obj={obj} comparator={comparator} />
+                    if (!obj || !obj.title || !obj.id || !obj.category) return null;
+                    return (
+                        <CardLayout
+                            key={i}
+                            obj={obj}
+                            comparator={comparator}
+                            setCompareDevice={setCompareDevice}
+                            category={category}
+                        />
+                    );
                 })}
+
             </div>
+            {compareDevice.length > 1 && comparator ? (
+                <button
+                    class="btn btn-primary position-fixed bottom-0 start-50 translate-middle-x mb-3"
+                >
+                    Confronta
+                </button>
+            ) : comparator && (
+                <button
+                    class="btn btn-secondary position-fixed bottom-0 start-50 translate-middle-x mb-3"
+                >
+                    Seleziona
+                </button>
+            )}
         </div>
     )
 }

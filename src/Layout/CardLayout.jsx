@@ -2,16 +2,28 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import GlobalContext from "../context/GlobalContext";
 
-export default function CardLayout({ obj, comparator }) {
+export default function CardLayout({ obj, comparator, setCompareDevice = () => { }, category }) {
     const { favorites, setFavorites } = useContext(GlobalContext);
     const [star, setStar] = useState(false);
+    const [check, setCheck] = useState(false);
+
+    if (!obj || !obj.title || !obj.id || !obj.category) {
+        return (
+            <div className="col-12 col-md-4 col-lg-3">
+                <div className="card h-100 d-flex align-items-center justify-content-center text-danger p-4">
+                    Dati del dispositivo non validi.
+                </div>
+            </div>
+        );
+    }
 
     function handleStar() {
+        if (!obj.title) return;
         if (star === false) {
             setFavorites(prev => [...prev, obj]);
             setStar(true);
         } else {
-            setFavorites(prev => prev.filter(i => i.id !== obj.id));
+            setFavorites(prev => prev.filter(i => i.title !== obj.title));
             setStar(false);
         }
     }
@@ -19,13 +31,36 @@ export default function CardLayout({ obj, comparator }) {
     useEffect(() => {
         const isFavorite = favorites.some(fav => fav.title === obj.title);
         setStar(isFavorite);
-    }, [favorites, obj.id]);
+    }, [favorites, obj.title]);
+
+    useEffect(() => {
+
+        if (check) {
+            setCompareDevice(prev => {
+                const alreadyAdded = prev.some(i => i.title === obj.title);
+                return alreadyAdded ? prev : [...prev, obj];
+            });
+        } else {
+            setCompareDevice(prev => prev.filter(i => i.title !== obj.title));
+        }
+    }, [check]);
+
+    useEffect(() => {
+        setCheck(false)
+    }, [category])
 
     return (
         <div className="col-12 col-md-4 col-lg-3">
             <div className="card h-100 position-relative">
-                {comparator && <input type="checkbox" className="position-absolute m-3" style={{ height: '20px', width: '20px' }} />}
-
+                {comparator && (
+                    <input
+                        type="checkbox"
+                        onChange={(e) => setCheck(e.target.checked)}
+                        checked={check}
+                        className="position-absolute m-3"
+                        style={{ height: '20px', width: '20px' }}
+                    />
+                )}
 
                 <button
                     className="btn position-absolute top-0 end-0 m-2 p-1"
@@ -36,14 +71,12 @@ export default function CardLayout({ obj, comparator }) {
                 </button>
 
                 <div className="card-body d-flex flex-column align-items-center">
-                    {obj.category && (
-                        <img
-                            src={`/assets/${obj.category.toLowerCase()}.jpg`}
-                            alt={obj.category}
-                            className="img-fluid"
-                            style={{ height: '200px', width: '200px', objectFit: 'cover' }}
-                        />
-                    )}
+                    <img
+                        src={`/assets/${obj.category.toLowerCase()}.jpg`}
+                        alt={obj.category}
+                        className="img-fluid"
+                        style={{ height: '200px', width: '200px', objectFit: 'cover' }}
+                    />
                     <Link to={`/${obj.category.toLowerCase()}/${obj.id}`} className="text-center mt-3">
                         <p>{obj.title}</p>
                     </Link>
