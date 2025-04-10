@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import GlobalContext from "../context/GlobalContext";
 
-export default function CardLayout({ obj }) {
+export default function CardLayout({ obj, comparator }) {
     const { favorites, setFavorites } = useContext(GlobalContext);
     const [star, setStar] = useState(false);
 
@@ -24,6 +24,9 @@ export default function CardLayout({ obj }) {
     return (
         <div className="col-12 col-md-4 col-lg-3">
             <div className="card h-100 position-relative">
+                {comparator && <input type="checkbox" className="position-absolute m-3" style={{ height: '20px', width: '20px' }} />}
+
+
                 <button
                     className="btn position-absolute top-0 end-0 m-2 p-1"
                     onClick={handleStar}

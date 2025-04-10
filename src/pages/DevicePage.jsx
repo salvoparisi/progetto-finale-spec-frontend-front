@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext, useMemo } from "react"
 import CardLayout from "../Layout/CardLayout"
 import GlobalContext from "../context/GlobalContext"
+import ModalComparator from "../components/ModalComparator"
 
 export default function DevicePage() {
     const { apiUrl } = useContext(GlobalContext)
@@ -8,6 +9,7 @@ export default function DevicePage() {
     const [filterName, setFilterName] = useState("")
     const [category, setCategory] = useState('')
     const [sort, setSort] = useState(1)
+    const [comparator, setComparator] = useState(false)
 
     useEffect(() => {
         const urls = [
@@ -38,6 +40,14 @@ export default function DevicePage() {
         })
     }, [sort, categoryDevice])
 
+    function handleComparator() {
+        if (comparator) {
+            setComparator(false)
+        } else {
+            setComparator(true)
+        }
+    }
+
     return (
         <div className="container mt-4 mb-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
@@ -63,6 +73,12 @@ export default function DevicePage() {
                             <option value="Smartwatch">Smartwatch</option>
                         </select>
                     </div>
+                    {comparator ? <button className="btn btn-danger btn-outline-secondary mt-4 me-3 text-white" onClick={handleComparator} >Esci dalla Modalità Confronta</button>
+                        : <button className="btn btn-outline-secondary mt-4 me-3" onClick={handleComparator} >Confronta Dispositivi</button>}
+                    <ModalComparator
+                        setCategory={setCategory}
+                        comparator={comparator}
+                    />
                     <button
                         onClick={handleSort}
                         className="btn btn-outline-secondary mt-4"
@@ -73,7 +89,7 @@ export default function DevicePage() {
             </div>
             <div className="row g-3">
                 {sortedTask.length > 0 && sortedTask.map((obj, i) => {
-                    return <CardLayout key={i} obj={obj} />
+                    return <CardLayout key={i} obj={obj} comparator={comparator} />
                 })}
             </div>
         </div>
