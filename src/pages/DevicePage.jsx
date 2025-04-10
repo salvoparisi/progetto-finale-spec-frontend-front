@@ -178,14 +178,16 @@ export default function DevicePage() {
             {/* Bottone Confronta/Seleziona */}
             {compareDevice.length > 1 && comparator ? (
                 <button
-                    className="btn btn-primary position-fixed bottom-0 start-50 translate-middle-x mb-3"
+                    className="btn btn-primary position-fixed bottom-0 start-50 translate-middle-x mb-3 fs-3"
+                    style={{ zIndex: 1050 }}
                     onClick={handleSumbitComparator}
                 >
                     Confronta
                 </button>
             ) : comparator && (
                 <button
-                    className="btn btn-secondary position-fixed bottom-0 start-50 translate-middle-x mb-3"
+                    className="btn btn-secondary position-fixed bottom-0 start-50 translate-middle-x mb-3 fs-3"
+                    style={{ zIndex: 1050 }}
                 >
                     Seleziona
                 </button>

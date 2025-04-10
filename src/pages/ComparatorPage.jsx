@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import GlobalContext from "../context/GlobalContext"
 
 export default function ComparatorPage() {
@@ -52,6 +52,7 @@ export default function ComparatorPage() {
                     </div>
                 ))}
             </div>
+            <Link to={"/devices"} className="btn btn-primary position-fixed bottom-0 start-50 translate-middle-x mb-3 fs-3">Torna alla Lista</Link>
         </div>
     ) : (
         <h2 className="text-danger text-center mt-5">⚠️ Non hai selezionato nessun elemento da confrontare!</h2>
