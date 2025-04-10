@@ -1,8 +1,18 @@
-import { useEffect, useState, useContext, useMemo } from "react"
+import { useEffect, useState, useContext, useMemo, useCallback } from "react"
 import CardLayout from "../Layout/CardLayout"
 import GlobalContext from "../context/GlobalContext"
 import ModalComparator from "../components/ModalComparator"
 import { useNavigate } from "react-router-dom"
+
+function debounce(callback, delay) {
+    let timer;
+    return (value) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            callback(value);
+        }, delay);
+    };
+}
 
 export default function DevicePage() {
     const navigate = useNavigate()
@@ -61,6 +71,12 @@ export default function DevicePage() {
         navigate(`/comparator/${compareDevice[0].category.toLowerCase()}/${idsString}`)
     }
 
+    const callbackDebounce = useCallback(
+        debounce((value) => {
+            setFilterName(value)
+        }, 300), []
+    )
+
     return (
         <div className="container mt-4 mb-5">
             <h1 className="text-primary text-center">Lista Dispositivi</h1>
@@ -72,7 +88,7 @@ export default function DevicePage() {
                             type="text"
                             className="form-control"
                             placeholder="Cerca per nome"
-                            onChange={(e) => setFilterName(e.target.value)}
+                            onChange={(e) => callbackDebounce(e.target.value)}
                         />
                     </div>
                 </div>
