@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 export default function ModalComparator({ setCategory, setComparator, showModal, setShowModal }) {
@@ -15,9 +14,13 @@ export default function ModalComparator({ setCategory, setComparator, showModal,
             className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
             style={{ zIndex: 1050 }}
         >
-            <div className="bg-white p-4 rounded shadow">
+            <div className="bg-white p-4 rounded shadow position-relative">
+                <button
+                    className="btn btn-danger position-absolute top-0 end-0 m-2 mb-5 pb-2"
+                    onClick={() => setShowModal(false)}
+                />
                 <h2 className="mb-3">Seleziona una categoria</h2>
-                <div className="d-flex flex-wrap gap-2">
+                <div className="d-flex flex-wrap gap-2 justify-content-between">
                     {categories.map((cat, i) => (
                         <button
                             key={i}
@@ -29,7 +32,8 @@ export default function ModalComparator({ setCategory, setComparator, showModal,
                     ))}
                 </div>
             </div>
-        </div>,
+        </div>
+        ,
         document.body
     );
 }
