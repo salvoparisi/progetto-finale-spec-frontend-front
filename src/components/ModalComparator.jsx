@@ -1,21 +1,16 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-export default function ModalComparator({ comparator, setCategory }) {
+export default function ModalComparator({ setCategory, setComparator, showModal, setShowModal }) {
     const categories = ["Smartphone", "Tablet", "Smartwatch"];
-    const [show, setShow] = useState(true)
 
     function handleClick(category) {
         setCategory(category);
-        setShow(false)
+        setShowModal(false)
+        setComparator(true)
     }
 
-    useEffect(() => {
-        if (comparator) {
-            setShow(true)
-        }
-    }, [comparator])
-    return comparator && show && createPortal(
+    return showModal && createPortal(
         <div
             className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
             style={{ zIndex: 1050 }}

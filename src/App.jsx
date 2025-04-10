@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { GlobalProvider } from './context/GlobalContext'
 import FavoritesPage from './pages/FavoritesPage';
+import ComparatorPage from './pages/ComparatorPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/devices' element={<DevicePage />} />
           <Route path='/favorites' element={<FavoritesPage />} />
           <Route path='/:category/:id' element={<DeviceDetailPage />} />
+          <Route path='/comparator/:category/:ids' element={<ComparatorPage />} />
         </Routes>
       </GlobalProvider >
     </BrowserRouter>

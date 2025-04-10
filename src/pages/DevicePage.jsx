@@ -2,8 +2,10 @@ import { useEffect, useState, useContext, useMemo } from "react"
 import CardLayout from "../Layout/CardLayout"
 import GlobalContext from "../context/GlobalContext"
 import ModalComparator from "../components/ModalComparator"
+import { useNavigate } from "react-router-dom"
 
 export default function DevicePage() {
+    const navigate = useNavigate()
     const { apiUrl } = useContext(GlobalContext)
     const [devices, setDevices] = useState([])
     const [filterName, setFilterName] = useState("")
@@ -11,6 +13,7 @@ export default function DevicePage() {
     const [sort, setSort] = useState(1)
     const [comparator, setComparator] = useState(false)
     const [compareDevice, setCompareDevice] = useState([])
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         const urls = [
@@ -45,7 +48,7 @@ export default function DevicePage() {
         if (comparator) {
             setComparator(false)
         } else {
-            setComparator(true)
+            setShowModal(true)
         }
     }
 
@@ -53,10 +56,10 @@ export default function DevicePage() {
         setCompareDevice([])
     }, [category, comparator])
 
-    useEffect(() => {
-        console.log(compareDevice);
-
-    }, [compareDevice])
+    function handleSumbitComparator() {
+        const idsString = compareDevice.map(item => item.id).join("+")
+        navigate(`/comparator/${compareDevice[0].category.toLowerCase()}/${idsString}`)
+    }
 
     return (
         <div className="container mt-4 mb-5">
@@ -95,7 +98,9 @@ export default function DevicePage() {
                         : <button className="btn btn-outline-secondary mt-4 me-3" onClick={handleComparator} >Confronta Dispositivi</button>}
                     <ModalComparator
                         setCategory={setCategory}
-                        comparator={comparator}
+                        setShowModal={setShowModal}
+                        showModal={showModal}
+                        setComparator={setComparator}
                     />
                     <button
                         onClick={handleSort}
@@ -122,13 +127,14 @@ export default function DevicePage() {
             </div>
             {compareDevice.length > 1 && comparator ? (
                 <button
-                    class="btn btn-primary position-fixed bottom-0 start-50 translate-middle-x mb-3"
+                    className="btn btn-primary position-fixed bottom-0 start-50 translate-middle-x mb-3"
+                    onClick={handleSumbitComparator}
                 >
                     Confronta
                 </button>
             ) : comparator && (
                 <button
-                    class="btn btn-secondary position-fixed bottom-0 start-50 translate-middle-x mb-3"
+                    className="btn btn-secondary position-fixed bottom-0 start-50 translate-middle-x mb-3"
                 >
                     Seleziona
                 </button>

@@ -34,21 +34,23 @@ export default function DeviceDetailPage() {
                 </div>
 
                 {/* Dettagli dispositivo */}
-                <div className="col-12 col-md-6 mb-4">
-                    <h1 className="mb-3">{device.title}</h1>
-                    <p className="lead mb-3">{device.brand}</p>
-                    <p><strong>Categoria:</strong> {device.category}</p>
-                    <p><strong>Prezzo:</strong> €{device.price}</p>
-
-                    <div className="mt-4">
-                        <h5>Specifiche:</h5>
-                        {device.screenSize != null && <div><strong>Dimensione Schermo:</strong> {device.screenSize} Pollici</div>}
-                        {device.storageGB != null && <div><strong>Memoria:</strong> {device.storageGB} GB</div>}
-                        {device?.stylusSupport !== undefined && <div><strong>Supporto Penna:</strong> {device.stylusSupport ? "✅" : "❌"}</div>}
-                        {device.cameraMP != null && <div><strong>Fotocamera:</strong> {device.cameraMP} MP</div>}
-                        {device.batteryLife != null && <div><strong>Autonomia Batteria:</strong> {device.batteryLife} Ore</div>}
-                        {device?.hasGPS !== undefined && <div><strong>Supporto GPS:</strong> {device.hasGPS ? "✅" : "❌"}</div>}
-                        {device?.waterproof !== undefined && <div><strong>WaterProof:</strong> {device.waterproof ? "✅" : "❌"}</div>}
+                <div className="col-12 col-md-6 col-lg-4 mb-4">
+                    <div className="card shadow rounded-4 h-100 border-0">
+                        <div className="card-body p-4">
+                            <h4 className="card-title mb-3 text-primary">{device.title}</h4>
+                            <p className="text-muted mb-2"><strong>Brand:</strong> {device.brand}</p>
+                            <p className="mb-2"><strong>Categoria:</strong> {device.category}</p>
+                            <p className="mb-3"><strong>Prezzo:</strong> €{device.price}</p>
+                            <hr />
+                            <h6 className="mb-3 text-uppercase text-secondary">Specifiche Tecniche</h6>
+                            {device.screenSize && <p><strong>📏 Schermo:</strong> {device.screenSize}"</p>}
+                            {device.storageGB && <p><strong>💾 Memoria:</strong> {device.storageGB} GB</p>}
+                            {device.stylusSupport !== undefined && <p><strong>🖊 Penna:</strong> {device.stylusSupport ? "✅ Sì" : "❌ No"}</p>}
+                            {device.cameraMP && <p><strong>📸 Fotocamera:</strong> {device.cameraMP} MP</p>}
+                            {device.batteryLife && <p><strong>🔋 Batteria:</strong> {device.batteryLife} ore</p>}
+                            {device.hasGPS !== undefined && <p><strong>📍 GPS:</strong> {device.hasGPS ? "✅ Presente" : "❌ Assente"}</p>}
+                            {device.waterproof !== undefined && <p><strong>💧 Waterproof:</strong> {device.waterproof ? "✅ Sì" : "❌ No"}</p>}
+                        </div>
                     </div>
                 </div>
             </div>
