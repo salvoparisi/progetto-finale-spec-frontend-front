@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import GlobalContext from "../context/GlobalContext";
 
 export default function CardLayout({ obj, comparator, setCompareDevice = () => { }, category }) {
     const { favorites, setFavorites } = useContext(GlobalContext);
     const [star, setStar] = useState(false);
     const [check, setCheck] = useState(false);
+    const location = useLocation()
 
     if (!obj || !obj.title || !obj.id || !obj.category) {
         return (
@@ -67,7 +68,7 @@ export default function CardLayout({ obj, comparator, setCompareDevice = () => {
                     onClick={handleStar}
                     style={{ fontSize: '1.5rem', zIndex: 2, height: '40px', width: '40px' }}
                 >
-                    {star ? "⭐" : "★"}
+                    {location.pathname.includes("favorites") ? "❌" : star ? "⭐" : "★"}
                 </button>
 
                 <div className="card-body d-flex flex-column align-items-center">

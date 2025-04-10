@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 
 export default function FavoritesPage() {
     const { favorites } = useContext(GlobalContext)
+
     return (
         <div className="container">
             <div className="row g-3 mt-3 mb-5">
