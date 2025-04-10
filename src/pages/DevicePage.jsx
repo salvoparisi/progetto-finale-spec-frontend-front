@@ -51,7 +51,12 @@ export default function DevicePage() {
 
     useEffect(() => {
         setCompareDevice([])
-    }, [category])
+    }, [category, comparator])
+
+    useEffect(() => {
+        console.log(compareDevice);
+
+    }, [compareDevice])
 
     return (
         <div className="container mt-4 mb-5">

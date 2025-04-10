@@ -47,7 +47,7 @@ export default function CardLayout({ obj, comparator, setCompareDevice = () => {
 
     useEffect(() => {
         setCheck(false)
-    }, [category])
+    }, [category, comparator])
 
     return (
         <div className="col-12 col-md-4 col-lg-3">
