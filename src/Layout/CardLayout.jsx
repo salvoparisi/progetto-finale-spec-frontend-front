@@ -53,40 +53,57 @@ const CardLayout = memo(({ obj, comparator, setCompareDevice = () => { }, catego
     }, [category, comparator])
 
     return (
-        <div className="col-12 col-md-4 col-lg-3">
+        <div className="col-12 col-md-4 col-lg-3" onClick={() => setCheck(!check)} style={{
+            cursor: comparator ? 'pointer' : 'default'
+        }}>
             <div className="card h-100 position-relative">
-                {comparator && (
-                    <input
-                        type="checkbox"
-                        onChange={(e) => setCheck(e.target.checked)}
-                        checked={check}
-                        className="position-absolute m-3"
-                        style={{ height: '20px', width: '20px' }}
-                    />
+                {comparator ? (
+                    <div>
+                        <input
+                            type="checkbox"
+                            onChange={(e) => setCheck(e.target.checked)}
+                            checked={check}
+                            className="position-absolute m-3"
+                            style={{ height: '20px', width: '20px' }}
+                        />
+                        <div className="card-body d-flex flex-column align-items-center">
+                            <img
+                                src={`/assets/${obj.category.toLowerCase()}.jpg`}
+                                alt={obj.category}
+                                className="img-fluid"
+                                style={{ height: '200px', width: '200px', objectFit: 'cover' }}
+                            />
+                            <p className="mt-3">{obj.title}</p>
+                            <p className="text-center text-muted">{obj.category}</p>
+                        </div>
+                    </div>
+                ) : (
+                    <div>
+                        <button
+                            className="btn position-absolute top-0 end-0 m-2 p-1"
+                            onClick={handleStar}
+                            style={{ fontSize: '1.5rem', zIndex: 2, height: '40px', width: '40px' }}
+                        >
+                            {location.pathname.includes("favorites") ? "❌" : star ? "⭐" : "★"}
+                        </button>
+                        <div className="card-body d-flex flex-column align-items-center">
+                            <img
+                                src={`/assets/${obj.category.toLowerCase()}.jpg`}
+                                alt={obj.category}
+                                className="img-fluid"
+                                style={{ height: '200px', width: '200px', objectFit: 'cover' }}
+                            />
+                            <Link to={`/${obj.category.toLowerCase()}/${obj.id}`} className="text-center mt-3">
+                                <p>{obj.title}</p>
+                            </Link>
+                            <p className="text-center text-muted">{obj.category}</p>
+                        </div>
+                    </div>
                 )}
 
-                <button
-                    className="btn position-absolute top-0 end-0 m-2 p-1"
-                    onClick={handleStar}
-                    style={{ fontSize: '1.5rem', zIndex: 2, height: '40px', width: '40px' }}
-                >
-                    {location.pathname.includes("favorites") ? "❌" : star ? "⭐" : "★"}
-                </button>
 
-                <div className="card-body d-flex flex-column align-items-center">
-                    <img
-                        src={`/assets/${obj.category.toLowerCase()}.jpg`}
-                        alt={obj.category}
-                        className="img-fluid"
-                        style={{ height: '200px', width: '200px', objectFit: 'cover' }}
-                    />
-                    <Link to={`/${obj.category.toLowerCase()}/${obj.id}`} className="text-center mt-3">
-                        <p>{obj.title}</p>
-                    </Link>
-                    <p className="text-center text-muted">{obj.category}</p>
-                </div>
             </div>
-        </div>
+        </div >
     );
 })
 

@@ -162,6 +162,7 @@ export default function DevicePage() {
                 {sortedTask.length > 0 ? sortedTask.map((obj, i) => {
                     if (!obj || !obj.title || !obj.id || !obj.category) return null;
                     return (
+
                         <CardLayout
                             key={i}
                             obj={obj}
@@ -169,6 +170,7 @@ export default function DevicePage() {
                             setCompareDevice={setCompareDevice}
                             category={category}
                         />
+
                     );
                 }) : (
                     <h1 className="text-danger text-center mt-5">Nessun Risultato Trovato</h1>
@@ -188,6 +190,7 @@ export default function DevicePage() {
                 <button
                     className="btn btn-secondary position-fixed bottom-0 start-50 translate-middle-x mb-3 fs-3"
                     style={{ zIndex: 1050 }}
+                    onClick={() => alert('Selezionare piu di 1 Elemento')}
                 >
                     Seleziona
                 </button>
