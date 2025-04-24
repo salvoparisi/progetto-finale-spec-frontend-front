@@ -1,6 +1,6 @@
 export default function Homepage() {
     return (
-        <div className="container d-flex flex-column align-items-center">
+        <div className="container d-flex flex-column align-items-center pt-4">
             <h1>Benvenuto su Mobile Store</h1>
             <p className="text-muted text-center">La piattaforma perfetta per esplorare e confrontare i migliori dispositivi mobili sul mercato!</p>
 

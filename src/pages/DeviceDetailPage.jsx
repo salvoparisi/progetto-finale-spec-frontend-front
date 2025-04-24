@@ -8,15 +8,12 @@ export default function DeviceDetailPage() {
     const [device, setDevice] = useState({})
 
     useEffect(() => {
-        if (category === "smartwatch") {
-            fetch(`${apiUrl}/${category}es/${id}`)
-                .then(res => res.json())
-                .then(data => setDevice(data[category]))
-        } else {
-            fetch(`${apiUrl}/${category}s/${id}`)
-                .then(res => res.json())
-                .then(data => setDevice(data[category]))
-        }
+        const endpoint = category === "smartwatch"
+            ? `${apiUrl}/${category}es/${id}`
+            : `${apiUrl}/${category}s/${id}`
+        fetch(endpoint)
+            .then(res => res.json())
+            .then(data => setDevice(data[category]))
     }, [apiUrl, category, id]);
 
     return device ? (

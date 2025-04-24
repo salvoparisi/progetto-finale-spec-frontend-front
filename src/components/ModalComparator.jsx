@@ -12,7 +12,7 @@ export default function ModalComparator({ setCategory, setComparator, showModal,
     return showModal && createPortal(
         <div
             className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
-            style={{ zIndex: 1050 }}
+            style={{ zIndex: 10500 }}
         >
             <div className="bg-white p-4 rounded shadow position-relative">
                 <button

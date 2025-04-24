@@ -151,7 +151,7 @@ export default function DevicePage() {
                             onClick={handleSort}
                             className="btn btn-outline-secondary"
                         >
-                            {sort === 1 ? "↓" : "↑"}
+                            {sort === 1 ? "A-Z ↓" : "Z-A ↑"}
                         </button>
                     </div>
                 </div>
